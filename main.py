@@ -1,11 +1,9 @@
 import pandas as pd
-import numpy as np
 import yfinance as yf
 
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
-
 
 def fetch_ticker(ticker: str, time_range: str, interval: str) -> pd.DataFrame:
     forex_data = yf.Ticker(ticker).history(period=time_range, interval=interval)
@@ -72,14 +70,3 @@ def create_level_coords(data: pd.DataFrame):
     return levels
 
 
-test_ticker = 'USDGBP=X'
-test_time_range = '2wk'
-test_interval = '60m'
-test_strength = 2
-
-df = pd.DataFrame(data=fetch_ticker(test_ticker, test_time_range, test_interval))
-support_df = is_support(df, test_strength)
-resistance_df = is_resistance(df, test_strength)
-levels_df = create_level_coords(df)
-
-print(levels_df)

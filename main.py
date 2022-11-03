@@ -5,6 +5,7 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
+
 def fetch_ticker(ticker: str, time_range: str, interval: str) -> pd.DataFrame:
     forex_data = yf.Ticker(ticker).history(period=time_range, interval=interval)
     forex_data.drop(
@@ -18,13 +19,13 @@ def fetch_ticker(ticker: str, time_range: str, interval: str) -> pd.DataFrame:
     return forex_data
 
 
-# TODO: Use numpy/pandas built in methods such as iloc / window
+# TODO: Use numpy/pandas built in methods such as iloc / window / shift
 def is_support(df: pd.DataFrame, i: int) -> tuple:
     support = df['Low'][i] < df['Low'][i - 1] and df['Low'][i] < df['Low'][i + 1] < df['Low'][i + 2] and df['Low'][i - 1] < df['Low'][i - 2]
     return support
 
 
-# TODO: Use numpy/pandas built in methods such as iloc / window
+# TODO: Use numpy/pandas built in methods such as iloc / window / shift
 def is_resistance(df: pd.DataFrame, i: int) -> tuple:
     resistance = df['High'][i] > df['High'][i - 1] and df['High'][i] > df['High'][i + 1] > df['High'][i + 2] and df['High'][i - 1] > df['High'][i - 2]
     return resistance
